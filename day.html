@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ day_name }} Meal Plan - HealthMate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5faf8;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        h1, h2 {
+            color: #2c7a7b;
+            margin-bottom: 10px;
+        }
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .button {
+            padding: 10px 18px;
+            background: #2c7a7b;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 20px;
+            box-shadow: 0 3px 8px rgba(44,128,128,0.2);
+            transition: background-color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .button:hover {
+            background: #246b6b;
+        }
+        .meal-section {
+            margin-bottom: 25px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background-color: white;
+            border-radius: 12px;
+            padding: 12px 18px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 8px rgba(44,128,128,0.12);
+        }
+        .dish-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 18px;
+            color: #285e61;
+        }
+        .nutrition-info {
+            font-size: 14px;
+            color: #6b7a7b;
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .pagination a {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background: #2c7a7b;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+        .pagination a.disabled {
+            background: #a0b5b5;
+            pointer-events: none;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+  <div class="buttons">
+       <a href="/profile" class="button">👤 Back to Profile</a>
+       <a href="/pdf" class="button" target="_blank" rel="noopener">📄 Download PDF</a>
+   </div>
+
+
+    <h1>{{ day_name }} Meal Plan</h1>
+
+    {% for meal_name, foods in plan.items() %}
+      <div class="meal-section">
+        <h2>{{ meal_name }}</h2>
+        <ul>
+          {% for food in foods %}
+            <li>
+              <div class="dish-name">{{ food.dish_name }}</div>
+              <div class="nutrition-info">
+                Calories: {{ "%.2f"|format(food.calories) }} | 
+                Protein: {{ "%.2f"|format(food.protein) }}g | 
+                Fats: {{ "%.2f"|format(food.fats) }}g | 
+                Carbs: {{ "%.2f"|format(food.carbs) }}g
+              </div>
+            </li>
+          {% else %}
+            <li>No dishes found.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+
+    <div class="pagination">
+        {% if day_num > 1 %}
+          <a href="{{ url_for('view_day', day_num=day_num-1) }}">&laquo; Previous Day</a>
+        {% else %}
+          <a class="disabled">&laquo; Previous Day</a>
+        {% endif %}
+
+        {% if day_num < total_days %}
+          <a href="{{ url_for('view_day', day_num=day_num+1) }}">Next Day &raquo;</a>
+        {% else %}
+          <a class="disabled">Next Day &raquo;</a>
+        {% endif %}
+    </div>
+</body>
+</html>

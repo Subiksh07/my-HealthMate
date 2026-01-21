@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HealthMate - Your Meal History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Your Past Meal Plans</h1>
+
+        {% if plans %}
+            {% for plan in plans %}
+                {% if loop.index0 % 4 == 0 %}
+                    <div class="day-group">
+                        <h3>Day {{ (loop.index0 // 4) + 1 }} Plan</h3>
+                {% endif %}
+
+                <div class="card">
+                    <strong>{{ plan.meal }}</strong>: 
+                    {{ plan.dish_name }} | 
+                    {{ plan.calories }} kcal | 
+                    P: {{ plan.protein }}g | 
+                    F: {{ plan.fats }}g | 
+                    C: {{ plan.carbs }}g
+                </div>
+
+                {% if loop.index % 4 == 0 or loop.last %}
+                    </div> <!-- Close day-group -->
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No meal plans found. <a href="/">Generate one now</a>.</p>
+        {% endif %}
+
+        
+
+        <br>
+        <a href="/profile" class="btn">Back to Profile</a>
+        <a href="/pdf" class="btn" target="_blank">Download PDF</a>
+    </div>
+</body>
+</html>

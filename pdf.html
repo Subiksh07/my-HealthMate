@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HealthMate Weekly Meal Plan PDF</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 24px;
+            background-color: #f9fafb;
+        }
+        h1 {
+            text-align: center;
+            color: #2c7a7b;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #276749;
+            border-bottom: 3px solid #9ae6b4;
+            padding-bottom: 6px;
+            margin-top: 40px;
+            margin-bottom: 18px;
+        }
+        h3 {
+            color: #2c7a7b;
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            background: #fff;
+            margin-bottom: 10px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(44,128,128,0.1);
+        }
+        .dish-title {
+            font-weight: 700;
+            font-size: 18px;
+            color: #285e61;
+            margin-bottom: 4px;
+        }
+        .nutrition {
+            font-size: 14px;
+            color: #4a5568;
+        }
+        .no-data {
+            color: #718096;
+            font-size: 14px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>HealthMate Weekly Meal Plan</h1>
+
+    {% if plan %}
+        {% for day, meals in plan.items() %}
+            <h2>{{ day }}</h2>
+            {% if meals %}
+                {% for meal_name, foods in meals.items() %}
+                    <h3>{{ meal_name }}</h3>
+                    {% if foods %}
+                        <ul>
+                          {% for food in foods %}
+                              <li>
+                              <div class="dish-title">{{ food.dish_name or "Unnamed Dish" }}</div>
+                               <div class="nutrition">
+                                    Calories: {{ "%.2f"|format(food.calories or 0) }} |
+                                    Protein: {{ "%.2f"|format(food.protein or 0) }}g |
+                                    Fat: {{ "%.2f"|format(food.fats or 0) }}g |
+                                    Carbs: {{ "%.2f"|format(food.carbs or 0) }}g
+                                </div>
+                              </li>
+                            {% endfor %}
+                        </ul>
+
+                    {% else %}
+                        <p class="no-data">No food items available for this meal.</p>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p class="no-data">No meals available for this day.</p>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p class="no-data">No data available for this plan.</p>
+    {% endif %}
+</body>
+</html>

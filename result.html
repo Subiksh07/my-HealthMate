@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HealthMate - Your Diet Plan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Your Daily Calorie Target: {{ target }} kcal</h1>
+
+        <!-- Weekly Plan -->
+        {% if weekly_plan %}
+        <h2>Your Weekly Diet Plan</h2>
+        {% for day, plan in weekly_plan.items() %}
+        <h3>{{ day }}</h3>
+        <div class="meals">
+            {% for meal, foods in plan.items() %}
+            <div class="card">
+                <h4>{{ meal }}</h4>
+                <ul>
+                    {% for food in foods %}
+                    <li>
+                        {{ food['Dish Name'] }}<br>
+                        Calories: {{ food['Calories (kcal)'] }} | 
+                        Protein: {{ food['Protein (g)'] }}g | 
+                        Fat: {{ food['Fats (g)'] }}g | 
+                        Carbs: {{ food['Carbohydrates (g)'] }}g
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <!-- Single Day Plan -->
+        {% if plan and not weekly_plan %}
+        <div class="meals">
+            {% for meal, foods in plan.items() %}
+            <div class="card">
+                <h2>{{ meal }}</h2>
+                <ul>
+                    {% for food in foods %}
+                    <li>
+                        {{ food['Dish Name'] }}<br>
+                        Calories: {{ food['Calories (kcal)'] }} | 
+                        Protein: {{ food['Protein (g)'] }}g | 
+                        Fat: {{ food['Fats (g)'] }}g | 
+                        Carbs: {{ food['Carbohydrates (g)'] }}g
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- BMI Display -->
+        <h2>Your BMI: {{ bmi }} ({{ bmi_status }})</h2>
+
+        <!-- Nutrient Chart -->
+        <h2>Daily Nutrient Breakdown</h2>
+        <canvas id="nutrientChart" width="400" height="200"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            const ctx = document.getElementById('nutrientChart').getContext('2d');
+            const nutrientChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Protein (g)', 'Carbohydrates (g)', 'Fats (g)'],
+                    datasets: [{
+                        label: 'Total Daily Intake',
+                        data: [{{ total_protein }}, {{ total_carbs }}, {{ total_fats }}],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(255, 159, 64, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Grams'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        </script>
+
+        <div class="button-container">
+          <div class="buttons-left">
+             <a href="/" class="btn">Back</a>
+             <a href="/pdf" class="btn" target="_blank">Download PDF</a>
+          </div>
+            
+     </div>
+     <a href="{{ url_for('chatbot_page') }}">💬 Diet Chatbot</a>
+
+    </div>
+</body>
+</html>

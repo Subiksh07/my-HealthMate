@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Progress Tracker</title>
+</head>
+<body>
+    <h2>Log Your Daily Health Progress</h2>
+    <form method="POST">
+        Weight (kg): <input type="number" step="0.1" name="weight" required><br>
+        BMI: <input type="number" step="0.1" name="bmi" required><br>
+        Calories Consumed: <input type="number" step="0.1" name="calories" required><br>
+        Protein (g): <input type="number" step="0.1" name="protein" required><br>
+        Carbs (g): <input type="number" step="0.1" name="carbs" required><br>
+        Fats (g): <input type="number" step="0.1" name="fats" required><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <h3>Your Progress History</h3>
+    <ul>
+        {% for entry in progress_data %}
+        <li>{{ entry.date.strftime('%Y-%m-%d') }} - Weight: {{ entry.weight }} kg, BMI: {{ entry.bmi }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

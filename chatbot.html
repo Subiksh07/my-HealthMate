@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diet Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .chat-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+        }
+        #chatlog {
+            height: 400px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        .user { color: blue; }
+        .bot { color: green; }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            width: 70%;
+            border-radius: 5px;
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>💬 HealthMate Diet Assistant</h2>
+        <div id="chatlog"></div>
+        <input id="chatinput" type="text" placeholder="Ask about diet, protein, weight loss, etc...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('chatinput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            // Add user message to chat
+            addMessage(message, 'user');
+
+            // Send to Flask backend
+            fetch('/chatbot', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.json())
+            .then(data => addMessage(data.response, 'bot'))
+            .catch(() => addMessage("Error: Could not reach the server.", 'bot'));
+
+            input.value = '';
+        }
+
+        function addMessage(text, sender) {
+            const chatlog = document.getElementById('chatlog');
+            const msg = document.createElement('p');
+            msg.innerHTML = `<strong>${sender === 'user' ? 'You' : 'Bot'}:</strong> ${text}`;
+            msg.className = sender;
+            chatlog.appendChild(msg);
+            chatlog.scrollTop = chatlog.scrollHeight;
+        }
+
+        // Allow pressing Enter to send
+        document.getElementById('chatinput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
+</body>
+</html>
