@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>External Recipe Search</title>
+</head>
+<body>
+    <h1>Search Recipes by Ingredients</h1>
+    <form method="POST" action="/external-recipes">
+        <label>Enter ingredients (comma separated):</label><br>
+        <input type="text" name="keywords" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if recipes %}
+        <h2>Recipes Found:</h2>
+        <ul>
+            {% for r in recipes %}
+            <li>
+                {% if r.image %}
+                    <img src="{{ r.image }}" alt="{{ r.title }}" width="100">
+                {% endif %}
+                <strong>{{ r.title }}</strong>
+                <a href="https://spoonacular.com/recipes/{{ r.title | replace(' ', '-') }}-{{ r.id }}" target="_blank">View Recipe</a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% elif recipes is not none %}
+        <p>No recipes found for those ingredients.</p>
+    {% endif %}
+</body>
+</html>
