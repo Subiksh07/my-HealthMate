@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login - HealthMate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background: url('https://images.unsplash.com/photo-1542838687-7ef8dddeda3b?auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 35px;
+            width: 350px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: #dd4b39;
+            font-size: 28px;
+        }
+        input[type=email], input[type=password] {
+            width: 100%;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            border-radius: 30px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input[type=email]:focus, input[type=password]:focus {
+            border-color: #dd4b39;
+            box-shadow: 0 0 8px rgba(221,75,57,0.5);
+        }
+        button {
+            width: 100%;
+            padding: 15px 0;
+            background: #dd4b39;
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #b63527;
+        }
+        .links {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .links a {
+            color: #dd4b39;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .footer {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #555;
+        }
+        @media (max-width: 480px) {
+            .login-container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Welcome Back</h1>
+        <form method="POST">
+            <input type="email" name="email" placeholder="Email Address" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <button type="submit">Login</button>
+        </form>
+        <div class="links">
+            Don't have an account? <a href="/signup">Sign Up</a>
+        </div>
+        <div class="footer">&copy; 2025 HealthMate. Your health, your power.</div>
+    </div>
+</body>
+</html>

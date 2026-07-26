@@ -1,0 +1,259 @@
+/* ==================== */
+/* HealthMate - Unified CSS */
+/* Includes: App + Auth */
+/* ==================== */
+
+/* Global */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* App Background */
+body:not(.auth) {
+    background: #f4f7f9;
+}
+
+/* Container */
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Auth Page Styles */
+.auth-container {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin: 40px auto;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.auth-container:hover {
+    transform: translateY(-5px);
+}
+
+.auth-container h1 {
+    margin: 0 0 20px 0;
+    font-size: 28px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+input[type="number"] {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+/* Checkboxes */
+input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+/* Button Base */
+.btn {
+    background: #667eea;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: background 0.2s ease;
+    width: 100%;
+}
+
+.btn:hover {
+    background: #5a67d8;
+    text-decoration: none;
+}
+
+/* Button Container - 2 Left, 2 Right */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 0;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.buttons-left,
+.buttons-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.buttons-right {
+    text-align: right;
+}
+
+/* Links */
+a {
+    color: #667eea;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Headings */
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .button-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .buttons-left,
+    .buttons-right {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .buttons-left {
+        order: 1;
+        margin-bottom: 10px;
+    }
+    .buttons-right {
+        order: 2;
+        text-align: left;
+    }
+    .btn {
+        flex: 1;
+        margin: 0 5px;
+    }
+}
+/* Profile Page Styles */
+/* Simple Profile Container - No Blur */
+.profile-container-simple {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.profile-header {
+    margin-bottom: 15px;
+}
+
+.profile-header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.profile-info-left {
+    background: #f8f9ff;
+    padding: 15px 20px;
+    border-left: 4px solid #667eea;
+    margin: 0 0 20px 0;
+    font-size: 15px;
+    color: #2c3e50;
+}
+
+.profile-info-left strong {
+    color: #1a1a1a;
+}
+
+.profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.action-btn {
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-align: center;
+    transition: background 0.2s ease;
+    background: #667eea;
+    color: white;
+    border: none;
+    text-decoration: none;
+}
+
+.action-btn:hover {
+    background: #5a67d8;
+}
+
+.logout-btn {
+    background: #e74c3c !important;
+}
+
+.logout-btn:hover {
+    background: #c0392b !important;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .profile-container-simple {
+        margin: 20px 10px;
+        padding: 20px;
+    }
+    .profile-header h1 {
+        font-size: 24px;
+    }
+}
+/* Email Link Style */
+.email-link {
+    color: #667eea !important;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.email-link:hover {
+    text-decoration: underline;
+    color: #5a67d8 !important;
+}
